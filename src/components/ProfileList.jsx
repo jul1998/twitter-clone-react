@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { getProfileList } from '../store/slices/profileListSlicer';
 import checkToken from "../utils/checkToken";
 
-import {Button, Card, Alert } from 'react-bootstrap/';
+import {Button, Card, Alert, Nav } from 'react-bootstrap/';
 
 const ProfileList = () => {
 
@@ -51,7 +51,7 @@ const ProfileList = () => {
   return (
     <div>
       {profiles?profiles.map((profile) => (
-      <Card key={profile.id} style={{ width: '18rem' }}>
+      <Card className="mt-4" key={profile.id} style={{ width: '18rem' }}>
       <Card.Img variant="top" src="https://images.unsplash.com/photo-1499557354967-2b2d8910bcca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZmlsZSUyMGhvbGRlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60" />
       <Card.Body>
         <Card.Title>{profile.user}</Card.Title>
@@ -61,7 +61,9 @@ const ProfileList = () => {
         <Card.Text>
          <small>Last update: {profile.date_modified} </small>
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Button variant="primary">
+          <Nav.Link href={`/profile-dp/${profile.id}`}>View Profile</Nav.Link>
+        </Button>
       </Card.Body>
     </Card>
     )):<p>No profiles</p>}

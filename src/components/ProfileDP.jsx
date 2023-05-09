@@ -4,7 +4,16 @@ import { useSelector } from "react-redux";
 import { getProfileDP } from "../store/slices/profileListSlicer";
 import { useParams, Link } from "react-router-dom";
 import checkToken from "../utils/checkToken";
-import { Button, Card, Alert, Spinner } from "react-bootstrap/";
+import {
+  Container,
+  ListGroup,
+  Image,
+  Row,
+  Col,
+  Alert,
+  Spinner,
+  Card,
+} from "react-bootstrap/";
 
 const ProfileDP = () => {
   const { userid } = useParams();
@@ -29,9 +38,6 @@ const ProfileDP = () => {
       });
   }, [dispatch, userid]);
 
-
-
-
   if (loading) {
     return (
       <Spinner animation="border" role="status">
@@ -47,45 +53,79 @@ const ProfileDP = () => {
     );
   }
 
-    if (!checkToken()) {
-        // window.location.href = "/sign-up";
-        return (
-            <Alert key="warning" variant="warning">
-                You need to be logged in to view this page.
-            </Alert>
-        );
-    }
-
-if(!profile){
+  if (!checkToken()) {
+    // window.location.href = "/sign-up";
     return (
-        <Alert key="danger" variant="danger">
-            No profile found.
-        </Alert>
+      <Alert key="warning" variant="warning">
+        You need to be logged in to view this page.
+      </Alert>
     );
-}
+  }
 
+  if (!profile) {
+    return (
+      <Alert key="danger" variant="danger">
+        No profile found.
+      </Alert>
+    );
+  }
 
-
-return (
+  return (
     <div>
-      <h2>{profile.user}'s profile</h2>
-      
-      <strong>Follows {profile.follows.length} people:</strong>
-      <ul>
-        {profile.follows?profile.follows.map((follow) => (
-          <li key={follow.id}><Link to={`/profile-dp/${follow.id}`}>@{follow.user__username}</Link> </li>
-        )):<p>No follows</p>}
-      </ul>
-        <strong>Followed by {profile.followed_by.length} people :</strong>
-        <ul>
-        {profile.followed_by?profile.followed_by.map((follow) => (
-            <li key={follow.id}><Link to={`/profile-dp/${follow.id}`}>@{follow.user__username}</Link> </li>
-        )):<p>No followers</p>}
-        </ul>
+      <Container>
+        <Row>
+          <Col xs={6} md={4}>
+            <Image src="holder.js/171x180" roundedCircle />
+          </Col>
+          <Col>
+            <h2>{profile.user}'s profile</h2>
+          </Col>
+          <Col>
+            <strong>Follows {profile.follows.length} people:</strong>
+            <Card style={{ width: "18rem" }}>
+              <Card.Header>
+                Follows {profile.follows.length} people:
+              </Card.Header>
+              <ListGroup variant="flush">
+                {profile.follows ? (
+                  profile.follows.map((follow) => (
+                    <Link to={`/profile-dp/${follow.id}`}>
+                      <ListGroup.Item key={follow.id}>
+                        {" "}
+                        @{follow.user__username}{" "}
+                      </ListGroup.Item>
+                    </Link>
+                  ))
+                ) : (
+                  <p>No follows</p>
+                )}
+              </ListGroup>
+            </Card>
 
+            <Card className="mt-3" style={{ width: "18rem" }}>
+              <Card.Header>
+                Followed by {profile.followed_by.length} people:
+              </Card.Header>
+              <ListGroup variant="flush">
+                {profile.followed_by ? (
+                  profile.followed_by.map((follow) => (
+                    <Link to={`/profile-dp/${follow.id}`}>
+                      <ListGroup.Item key={follow.id}>
+                        {" "}
+                        @{follow.user__username}{" "}
+                      </ListGroup.Item>
+                    </Link>
+                  ))
+                ) : (
+                  <p>No follows</p>
+                )}
+              </ListGroup>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
-
 
 export default ProfileDP;
