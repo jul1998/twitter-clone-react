@@ -1,6 +1,6 @@
 import React from 'react'
 import checkToken from "../utils/checkToken";
-
+import MeepsComp from './MeepsComp';
 
 const Home = () => {
 
@@ -11,7 +11,9 @@ const Home = () => {
 
 
   return (
-    <div>Meeps!</div>
+    <div>
+      <MeepsComp />
+    </div>
   )
 }
 

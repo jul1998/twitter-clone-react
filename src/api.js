@@ -15,4 +15,5 @@ export const endpoints = {
   register: "accounts/register/",
   profileList: "musker/profile_list/",
   profileDP: "musker/profile/",
+  getMeeps: "musker/meeps/",
 };

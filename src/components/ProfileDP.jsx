@@ -16,6 +16,7 @@ import {
 } from "react-bootstrap/";
 
 const ProfileDP = () => {
+  const localUserId  = localStorage.getItem("user_id");
   const { userid } = useParams();
 
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const ProfileDP = () => {
     dispatch(getProfileDP(userid))
       .then((response) => {
         console.log(response);
-        setProfile(response.payload);
+        setProfile(response.payload.profile);
         setLoading(false);
       })
       .catch((error) => {
@@ -37,6 +38,12 @@ const ProfileDP = () => {
         setError(error);
       });
   }, [dispatch, userid]);
+
+  const determineIfFollow = (userId) => {
+    const followedBy = profile.followed_by || []; // default to an empty array if followed_by is undefined
+    const isFollowing = followedBy.some(user => user.id === userId);
+    return isFollowing ? "Unfollow" : "Follow";
+  };
 
   if (loading) {
     return (
@@ -121,6 +128,9 @@ const ProfileDP = () => {
                 )}
               </ListGroup>
             </Card>
+
+            {determineIfFollow(localUserId)}
+            
           </Col>
         </Row>
       </Container>
