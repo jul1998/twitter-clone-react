@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { getProfileDP } from "../store/slices/profileListSlicer";
 import { useParams, Link } from "react-router-dom";
+import { MeepsByUserIdComp }  from "./index";
 import checkToken from "../utils/checkToken";
 import {
   Container,
@@ -28,7 +28,7 @@ const ProfileDP = () => {
   useEffect(() => {
     dispatch(getProfileDP(userid))
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setProfile(response.payload.profile);
         setLoading(false);
       })
@@ -86,6 +86,8 @@ const ProfileDP = () => {
           </Col>
           <Col>
             <h2>{profile.user}'s profile</h2>
+            <br></br>
+            <MeepsByUserIdComp userid={userid} username={profile.user}/>
           </Col>
           <Col>
             <strong>Follows {profile.follows.length} people:</strong>

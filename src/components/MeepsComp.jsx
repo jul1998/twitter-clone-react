@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getMeeps } from "../store/slices/meepsSlicer";
 import { useDispatch, useSelector } from "react-redux";
+import CreateMeepComp from "./CreateMeepComp";
 
 import Alert from "react-bootstrap/Alert";
 
@@ -26,6 +27,7 @@ const MeepsComp = () => {
   return (
     <div>
       <h1>Meeps</h1>
+      <CreateMeepComp />
       {meeps.map((meep) => (
         <div key={meep.id}>
           <Alert variant="dark">

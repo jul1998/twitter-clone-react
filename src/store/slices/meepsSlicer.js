@@ -10,6 +10,15 @@ export const getMeeps = createAsyncThunk(
 
 );
 
+export const getMeepByUserID = createAsyncThunk(
+    "meeps/getMeepByUserID",
+    async (id) => {
+        const response = await api.get(endpoints.getMeeps + id);
+        return response.data;
+    }
+
+);
+
 export const meepsSlicer = createSlice({
     name: "meeps",
     initialState: {
@@ -30,6 +39,20 @@ export const meepsSlicer = createSlice({
             state.status = "failed";
         }
         ,
+        [getMeepByUserID.pending]: (state, action) => {
+            state.status = "loading";
+        }
+        ,
+        [getMeepByUserID.fulfilled]: (state, action) => {
+            state.meeps = action.payload;
+            state.status = "success";
+        }
+        ,
+        [getMeepByUserID.rejected]: (state, action) => {
+            state.status = "failed";
+        }
+        ,
+        
     }
     ,
 });
