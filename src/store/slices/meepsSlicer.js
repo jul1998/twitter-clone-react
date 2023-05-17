@@ -16,8 +16,35 @@ export const getMeepByUserID = createAsyncThunk(
         const response = await api.get(endpoints.getMeeps + id);
         return response.data;
     }
-
 );
+
+export const createMeep = createAsyncThunk(
+    "meeps/createMeep",
+    async (body) => {
+        const response = await api.post(endpoints.createMeep, body);
+        return response.data;
+    }
+);
+
+export const likeMeep = createAsyncThunk(
+    "meeps/likeMeep",
+    async (body) => {
+        const response = await api.post(endpoints.meepLikes, body);
+        return response.data;
+    }
+);
+
+export const getMeepLikesCount = createAsyncThunk(
+    "meeps/getMeepLikesCount",
+    async (data) => {
+        
+        const response = await api.post(endpoints.meepLikesCount, data);
+        
+        return response.data;
+    }
+);
+
+
 
 export const meepsSlicer = createSlice({
     name: "meeps",
@@ -52,7 +79,46 @@ export const meepsSlicer = createSlice({
             state.status = "failed";
         }
         ,
-        
+        [createMeep.pending]: (state, action) => {
+            state.status = "loading";
+        }
+        ,
+        [createMeep.fulfilled]: (state, action) => {
+            state.meeps = action.payload;
+            state.status = "success";
+        }
+        ,
+        [createMeep.rejected]: (state, action) => {
+            state.status = "failed";
+        }
+        ,
+        [likeMeep.pending]: (state, action) => {
+            state.status = "loading";
+        }
+        ,
+        [likeMeep.fulfilled]: (state, action) => {
+            state.meeps = action.payload;
+            state.status = "success";
+        }
+        ,
+        [likeMeep.rejected]: (state, action) => {
+            state.status = "failed";
+        }
+        ,
+        [getMeepLikesCount.pending]: (state, action) => {
+            state.status = "loading";
+        }
+        ,
+        [getMeepLikesCount.fulfilled]: (state, action) => {
+            state.meeps = action.payload;
+            state.status = "success";
+        }
+        ,
+        [getMeepLikesCount.rejected]: (state, action) => {
+            state.status = "failed";
+        }
+        ,
+
     }
     ,
 });

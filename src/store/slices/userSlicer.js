@@ -29,6 +29,14 @@ export const logoutUser = createAsyncThunk(
     }
 )
 
+export const updateUser = createAsyncThunk(
+    "accounts/update_user",
+    async (userData) => {
+        const response = await api.put(endpoints.updateUser, userData);
+        return response.data;
+    }
+)
+
 
 export const userSheetSlice = createSlice({
     name: "user",
@@ -61,6 +69,35 @@ export const userSheetSlice = createSlice({
             state.status = "failed";
             state.error = action.error.message;
         },
+        [logoutUser.pending]: (state) => {
+            state.status = "loading";
+        }
+        ,
+        [logoutUser.fulfilled]: (state, action) => {
+            state.status = "succeeded";
+            state.userData = action.payload;
+        }
+        ,
+        [logoutUser.rejected]: (state, action) => {
+            state.status = "failed";
+            state.error = action.error.message;
+        }
+        ,
+        [updateUser.pending]: (state) => {
+            state.status = "loading";
+        }
+        ,
+        [updateUser.fulfilled]: (state, action) => {
+            state.status = "succeeded";
+            state.userData = action.payload;
+        }
+        ,
+        [updateUser.rejected]: (state, action) => {
+            state.status = "failed";
+            state.error = action.error.message;
+        }
+        
+
     },
 });
 

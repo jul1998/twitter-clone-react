@@ -13,6 +13,7 @@ import {
   Alert,
   Spinner,
   Card,
+  Button
 } from "react-bootstrap/";
 
 const ProfileDP = () => {
@@ -69,6 +70,8 @@ const ProfileDP = () => {
     );
   }
 
+  console.log(profile)
+
   if (!profile) {
     return (
       <Alert key="danger" variant="danger">
@@ -82,7 +85,12 @@ const ProfileDP = () => {
       <Container>
         <Row>
           <Col xs={6} md={4}>
-            <Image src="holder.js/171x180" roundedCircle />
+            <Image src={profile.profile_image} roundedCircle />
+            <Row>
+              <Col>
+             <Link to="/update-user-form-page"><Button variant="info">Update user info</Button></Link>
+              </Col>
+            </Row>
           </Col>
           <Col>
             <h2>{profile.user}'s profile</h2>

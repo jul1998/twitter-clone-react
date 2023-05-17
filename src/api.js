@@ -13,7 +13,11 @@ export const endpoints = {
   login: "accounts/login/",
   logout: "accounts/logout/",
   register: "accounts/register/",
+  updateUser: "accounts/update_user/",
   profileList: "musker/profile_list/",
   profileDP: "musker/profile/",
   getMeeps: "musker/meeps/",
+  createMeep: "musker/create_meep/",
+  meepLikes: "musker/like_meep/",
+  meepLikesCount: "musker/likes_count/",
 };
