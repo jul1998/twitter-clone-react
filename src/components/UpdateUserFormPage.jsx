@@ -20,6 +20,10 @@ const UpdateUserFormPage = () => {
         email: "",
         password: "",
         repeatPassword: "",
+        homePage: "",
+        facebook: "",
+        instagram: "",
+        
     });
 
     const handleChange = (e) => {
@@ -36,7 +40,12 @@ const UpdateUserFormPage = () => {
             email: formData.email,
             password: formData.password,
             user_id: userId,
+            home_page: formData.homePage,
+            facebook: formData.facebook,
+            instagram: formData.instagram,
+
         };
+
 
         dispatch(updateUser(userData));
       } else {
@@ -95,9 +104,6 @@ const UpdateUserFormPage = () => {
     });
   }
 
-
-
-
   return (
     <div>
        <Container>
@@ -124,6 +130,19 @@ const UpdateUserFormPage = () => {
         <Form.Label>Repeat password</Form.Label>
         <Form.Control  onChange={handleChange} name="repeatPassword" type="password" placeholder="1234" />
       </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Home page</Form.Label>
+        <Form.Control  onChange={handleChange} name="homePage" type="text" placeholder="1234" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Facebook</Form.Label>
+        <Form.Control  onChange={handleChange} name="facebook" type="text" placeholder="1234" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Instagram</Form.Label>
+        <Form.Control  onChange={handleChange} name="instagram" type="text" placeholder="1234" />
+      </Form.Group>
+
       <Button variant="primary" type="submit">
         Update
       </Button>
